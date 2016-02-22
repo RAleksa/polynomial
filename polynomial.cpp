@@ -19,7 +19,7 @@ class Polynomial {
         }
 
         bool operator == (T other) {
-            if (other == 0) {
+            if (!other) {
                 for (size_t i = 0; i < coord.size(); ++i) {
                     if (coord[i] != other) {
                         return false;
@@ -27,20 +27,12 @@ class Polynomial {
                 }
                 return true;
             } else {
-                if ((coord.size() == 1) && coord[0] == other) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (coord.size() == 1) && (coord[0] == other);
             }
         }
     
         bool operator != (const Polynomial &other) const{
-            if (*this == other) {
-                return false;
-            } else {
-                return true;
-            }
+            return *this != other;
         }
 
         Polynomial operator + (const Polynomial &other) const {
@@ -123,22 +115,22 @@ class Polynomial {
         }
 
         Polynomial &operator += (const Polynomial &other) {
-            *this = *this + other;
+            *this += other;
             return *this;
         }
         
         Polynomial &operator -= (const Polynomial &other) {
-            *this = *this - other;
+            *this -= other;
             return *this;
         }
 
         Polynomial &operator *= (const Polynomial &other) {
-            *this = *this * other;
+            *this *= other;
             return *this;
         }
         
         Polynomial &operator *= (const T &other) {
-            *this = *this * other;
+            *this *= other;
             return *this;
         }
 
@@ -151,7 +143,7 @@ class Polynomial {
         }
 
         int Degree () const {
-            if (coord.size() != 0) {
+            if (coord.size()) {
                 return coord.size() - 1;
             } else {
                 return -1;
@@ -168,7 +160,7 @@ class Polynomial {
                 ans *= coord[k];
                 res += ans;
             }
-            if (coord.size() > 0) {
+            if (coord.size()) {
                 res += coord[0];
             }
             return res;
@@ -258,7 +250,7 @@ std::ostream& operator << (std::ostream& stream, const Polynomial<T> &p) {
                 }
             } else {
                 if (p[i] < 0) {
-                stream << "-";
+                    stream << "-";
                 }
             }
         }
@@ -270,12 +262,12 @@ std::ostream& operator << (std::ostream& stream, const Polynomial<T> &p) {
             stream << i;
         }
         if (p.Degree() == 0 && p[0] == 0) {
-        stream << "0";
+            stream << "0";
         }
     }
     return stream;
 }
 
 int main() {
-    
+
 }
